@@ -1,13 +1,11 @@
 import React, { useState } from "react"
+import { NavLink } from 'react-router-dom';
 import logo from '../assets/images/logo.png'
 import cart from '../assets/images/shopping-cart.png'
 
 export default function Navbar() {
     const [logged, setLogged] = useState(false)
 
-    /// Barra de pesquisa
-    /// login/logout
-    /// carrinho.
     return (
         <nav>
             <img src={logo} className="nav--icon" alt="logo" />
@@ -19,8 +17,17 @@ export default function Navbar() {
             </div>
             <h5>Explorar</h5>
             <img src={cart} className="nav--cart" alt="logo" />
-            <h5 className="nav--text">{logged ? "Bem Vindo" : "Logar"}</h5>
-            <h5 className="nav--text">{logged ? null : "Registrar"}</h5>
+            <ul>
+                <li className="nav--text">
+                    <NavLink  to="/">Home</NavLink >
+                </li>
+                <li className="nav--text">
+                    {logged ? "Bem vindo" : <NavLink to="/login">Logar </NavLink >}
+                </li>
+                <li className="nav--text">
+                    {logged ? null : "Registrar"}
+                </li>
+            </ul>
         </nav>
     )
 }
