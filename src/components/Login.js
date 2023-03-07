@@ -1,33 +1,37 @@
 import React, { useState } from "react";
+import PropTypes from 'prop-types';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "../styles/Login.css";
 import configLocal from "../config";
 
-export default function Login() {
+export default function Login({ setToken }) {
+  console.log(setToken)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   function validateForm() {
     return email.length > 0 && password.length > 0;
   }
-  function handleSubmit(event) {
-    event.preventDefault();
-  }
 
-  async function loginUser(email, password) {
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const user = await loginUser({
+      email,
+      password
+    });
+
+    const token = user.tokens.access.token
+    setToken(token);
+  }
+  async function loginUser(credentials) {
     const result = fetch(`${configLocal.API_URL}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        email: email,
-        password: password
-      })
+      body: JSON.stringify(credentials)
     })
       .then(data => data.json())
-
-    console.log(result)
     return result
    }
 
@@ -51,10 +55,14 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Button block size="lg" type="submit" disabled={!validateForm()} onSubmit={loginUser(email, password)}>
+        <Button block size="lg" type="submit" disabled={!validateForm()} onSubmit={handleSubmit}>
           Login
         </Button>
       </Form>
     </div>
   );
+}
+
+Login.propTypes = {
+  setToken: PropTypes.func.isRequired
 }
