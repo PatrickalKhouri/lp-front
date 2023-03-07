@@ -46,4 +46,20 @@ nav {
 
 .nav--text {
   padding: 10px;
-} 
+}
+
+ul li a {
+  color: #000;
+ }
+ 
+ ul li a:hover {
+  color: #00a8ff;
+ }
+ 
+ ul li a.active {
+  color: #00a8ff;
+ }
+
+ .wrapper {
+  padding: 20px;
+}

@@ -1,14 +1,18 @@
-import logo from './logo.svg';
+import  { BrowserRouter, Route, Switch, Routes } from 'react-router-dom';
 import Navbar from "./components/Navbar"
+import Home from "./components/Home"
+import Login from "./components/Login"
 import './App.css';
+import { useState } from 'react';
 
 function App() {
   return (
     <div className="App">
       <Navbar />
-      <header className="App-header">
-        Bem vindo ao LP
-      </header>
+      <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+       </Routes>
     </div>
   );
 }
