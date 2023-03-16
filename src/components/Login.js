@@ -6,7 +6,6 @@ import "../styles/Login.css";
 import configLocal from "../config";
 
 export default function Login({ setToken }) {
-  console.log(setToken)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   function validateForm() {
@@ -19,7 +18,6 @@ export default function Login({ setToken }) {
       email,
       password
     });
-
     const token = user.tokens.access.token
     setToken(token);
   }
