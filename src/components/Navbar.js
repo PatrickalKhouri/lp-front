@@ -25,7 +25,7 @@ export default function Navbar() {
                     {logged ? "Bem vindo" : <NavLink to="/login">Logar </NavLink >}
                 </li>
                 <li className="nav--text">
-                    {logged ? null : "Registrar"}
+                    {logged ? "Logout" : <NavLink to="/register">Registrar </NavLink >}
                 </li>
             </ul>
         </nav>
