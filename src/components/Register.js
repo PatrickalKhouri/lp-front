@@ -12,18 +12,24 @@ export default function Register() {
   const [name, setName] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   function validateForm() {
-    return email.length > 0 && password.length > 0;
+    return email.length > 0 && password.length > 0 && name.length;
   }
 
   const handleSubmit = async e => {
     e.preventDefault();
-    await registerUser({
+    const result = await registerUser({
       email,
       password,
       name,
     });
-    message.success('Registrado com Sucesso');
-    setLoggedIn(true);
+    console.log(result)
+    if (result.code === 400) {
+      message.error(result.message)
+    } else {
+      message.success('Registrado com Sucesso');
+      setLoggedIn(true);
+    }
+
   }
   async function registerUser(credentials) {
     const result = fetch(`${configLocal.API_URL}/auth/register`, {
@@ -34,6 +40,7 @@ export default function Register() {
       body: JSON.stringify(credentials)
     })
       .then(data => data.json())
+
     return result
    }
 
